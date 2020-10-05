@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<script>
+  // functional programming - blurring between code and data
+
+  // function hoisting
+  doIt();
+
+  // function declaration
+  // call-site this
+  function doIt() {
+    console.log("did it");
+  }
+
+  // function expression
+  // call-site this
+  const doIt2 = function doIt2Alt() {
+    console.log("did it 2");
+  };
+
+  doIt2();
+
+  console.dir(doIt2);
+
+  // arrow function
+  // lexical-this
+  // you cannot assign a name on the function expression itself
+  const doIt3 = () => {
+    console.log("did it 3");
+  };
+
+  console.dir(doIt3);
+</script>

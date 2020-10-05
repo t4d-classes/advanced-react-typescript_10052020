@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<script>
+  // 3 named parameters
+  // arity of 3
+
+  // defining the function (declaring & creation of the function object on the heap)
+  // parameters are variables
+  // parameter = expression
+  // rest operator (...) will capture the remaining arguments into an array
+  function doIt(msg, msg2 = "hi", ...p) {
+    console.log(msg, msg2, p);
+
+    console.log(arguments);
+
+    // number of arguments passed in
+    console.log(arguments.length);
+  }
+
+  // number of parameters defined
+  console.log(doIt.length);
+  console.log(doIt.toString());
+
+  // invoking the function
+  // arguments are expressions
+  // spread operator used to spread an array of values into the function as individual arguments
+  doIt(["a", 1, 2, 3, 4, 5]);
+</script>

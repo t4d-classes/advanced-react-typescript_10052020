@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<script>
+  function doIt() {
+    console.log("did it");
+  }
+
+  // setTimeout(doIt, 2000);
+
+  // not anonymous function
+  const doIt3 = () => {
+    console.log("did it");
+  };
+
+  setTimeout(doIt3, 2000);
+
+  /*
+  setTimeout(() => {
+    console.log("did it");
+  }, 2000);
+  */
+
+  /*
+  setTimeout(function () {
+    console.log("did it");
+  }, 2000);
+  */
+
+  /*
+  setTimeout(function doIt2() {
+    console.log("did it");
+  }, 2000);
+  */
+</script>

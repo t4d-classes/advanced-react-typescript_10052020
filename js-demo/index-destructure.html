@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<script>
+  function displayFullName({ firstName, lastName, ...otherProps }) {
+    // const firstName = person.firstName;
+    // const lastName = person.lastName;
+
+    // const { firstName, lastName } = person;
+
+    console.log(firstName, lastName);
+    console.log(otherProps);
+  }
+
+  const person = {
+    firstName: "Bob",
+    lastName: "Smith",
+    age: 12,
+  };
+
+  displayFullName({});
+</script>
