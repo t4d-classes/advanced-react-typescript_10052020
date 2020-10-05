@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<script>
+  const delay = () => Math.floor(Math.random() * 1000) + 500;
+  const zeroToNine = () => Math.floor(Math.random() * 10);
+
+  // Code 3
+
+  // 1. How many times did doIt run?
+  // 2. Using the developer tools profiler, what was the total time it ran for?
+  // 3. Using performance measures, what was the total time it ran for?
+
+  // Hint: performance.getEntriesByType("measure")
+
+  let sum = 0;
+  let count = 0;
+  let maxCount = zeroToNine();
+
+  setTimeout(function doIt() {
+    performance.mark("start" + count);
+    sum = sum + delay();
+    if (++count < maxCount) {
+      setTimeout(doIt, delay());
+    } else {
+      console.log(sum);
+    }
+    performance.mark("end" + (count - 1));
+  }, delay());
+
+  setTimeout(() => {
+    let x = 0;
+
+    while (x < maxCount) {
+      console.log(performance.measure("doIt" + x, "start" + x, "end" + x));
+      x++;
+    }
+
+    console.log(
+      performance
+        .getEntriesByType("measure")
+        .reduce((acc, measure) => acc + measure.duration, 0)
+    );
+  }, 12000);
+</script>

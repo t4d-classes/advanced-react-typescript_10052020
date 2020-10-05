@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<script>
+  /*
+  function doIt() {
+    performance.mark("called do it");
+    console.log("did it");
+  }
+
+  setTimeout(doIt, 2000);
+  */
+
+  const delay = () => Math.floor(Math.random() * 10) * 500;
+
+  /*
+  console.log(delay());
+  console.log(delay());
+  console.log(delay());
+  console.log(delay());
+  */
+
+  /*
+  const add = (a, b) => {
+    let evaluatedA = a;
+
+    if (typeof evaluatedA === "function") {
+      evaluatedA = evaluatedA();
+    }
+
+    // a is being evaluated inside instead of outside
+
+    return evaluatedA + b;
+  };
+
+  setTimeout(() => {
+    add(() => {
+      performance.mark("called my func");
+      return 4 + 1;
+    }, 2);
+  }, delay());
+  */
+
+  const numCount = 10000;
+
+  performance.mark("while loop start");
+  const nums2 = [];
+  let x = 0;
+
+  while (x < numCount) {
+    nums2.push(x++);
+  }
+  performance.mark("while loop end");
+
+  console.log(nums2.length);
+  console.log(nums2);
+
+  performance.mark("for loop start");
+  const nums = [];
+
+  for (let x = 0; x < numCount; x++) {
+    nums.push(x);
+  }
+  performance.mark("for loop end");
+
+  console.log(nums.length);
+  console.log(nums);
+
+  const t = performance.now();
+  performance.mark("while loop 2 start");
+  const nums3 = [];
+  let y = numCount;
+
+  while (y--) {
+    nums3.push(y);
+  }
+  performance.mark("while loop 2 end");
+  console.log("while loop 2 duration", performance.now() - t);
+
+  console.log(nums2.length);
+  console.log(nums2);
+
+  console.log(
+    performance.measure("for loop", "for loop start", "for loop end")
+  );
+
+  console.log(
+    performance.measure("while loop", "while loop start", "while loop end")
+  );
+
+  console.log(
+    performance.measure(
+      "while loop 2",
+      "while loop 2 start",
+      "while loop 2 end"
+    )
+  );
+</script>

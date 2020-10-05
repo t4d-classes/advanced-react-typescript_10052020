@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<script>
+  const getNums = (maxCount) => Array.from(new Array(maxCount).keys());
+
+  const nums = getNums(10000000);
+
+  function doubleNum(num) {
+    return num * 2;
+  }
+
+  const doubleNums = [];
+
+  // imperative - how and what
+  // at first glance, its unclear what's happening
+
+  const t1 = performance.now();
+  for (let x = 0; x < nums.length; x++) {
+    doubleNums.push(nums[x] * 2);
+  }
+  console.log(performance.now() - t1);
+
+  // declarative - do not specify the how, only the what
+  // the way is the doubleNum function
+  // what function has a name which makes it more clear
+
+  /*
+  nums.forEach(function doubleNum(num) {
+    // updating doubleNums using a side effect
+    doubleNums.push(num * 2);
+  });
+  */
+
+  // declarative - do not specify the how, only the what
+  // the way is the doubleNum function
+  // "what" function has a name which makes it more clear
+  // the "map" function more clear semantically identifies what I am doing
+  const t2 = performance.now();
+  const doubleNums2 = nums.map(doubleNum);
+  console.log(performance.now() - t2);
+
+  console.log(nums.slice(0, 5));
+  console.log(doubleNums.slice(0, 5));
+  console.log(doubleNums.length);
+  console.log(doubleNums2.slice(0, 5));
+  console.log(doubleNums2.length);
+</script>

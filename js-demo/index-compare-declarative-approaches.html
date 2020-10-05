@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<script>
+  const getNums = (maxCount) => Array.from(new Array(maxCount).keys());
+
+  const maxCount = 5000000;
+
+  // const nums = getNums(10);
+  const nums = getNums(maxCount);
+
+  const items = nums.map((num) => ({ id: num, name: "Item " + num }));
+
+  function replaceItem1(item) {
+    return items.map((i) => (i.id === item.id ? item : i));
+  }
+
+  // give the function a clear semantic meaning
+  // and now I have declarative for any which calls the function
+  function replaceItem2(item) {
+    const itemIndex = items.findIndex((i) => i.id === item.id);
+    const newItems = [...items];
+    newItems[itemIndex] = item;
+    return newItems;
+  }
+
+  // skip this version
+  const t1 = performance.now();
+  const newItems1 = replaceItem1({ id: maxCount - 1, name: "Alt Item" });
+  console.log(performance.now() - t1);
+
+  // use this version
+  const t2 = performance.now();
+  const newItems2 = replaceItem2({ id: maxCount - 1, name: "Alt Item" });
+  console.log(performance.now() - t2);
+
+  console.log(items.slice(maxCount - 5));
+  console.log(newItems1.slice(maxCount - 5));
+  console.log(newItems2.slice(maxCount - 5));
+</script>
