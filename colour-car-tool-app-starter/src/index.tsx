@@ -7,6 +7,7 @@ import { ColourTool } from './components/ColourTool';
 import { CarTool } from './components/CarTool';
 // import { withListManager } from './components/ListManagerHOC';
 import { ListManager } from './components/ListManagerRP';
+import { CarStoreProvider } from './contexts/carStoreContext';
 
 const colourList: Colour[] = [
   { id: 1, name: 'pink', hexcode: 'ffc0cb' },
@@ -46,7 +47,9 @@ ReactDOM.render(
         return <ColourTool items={items} onAppendItem={appendItem} />;
       }}
     />
-    <CarTool cars={carList} />
+    <CarStoreProvider cars={carList}>
+      <CarTool />
+    </CarStoreProvider>
   </>,
   document.querySelector('#root'),
 );

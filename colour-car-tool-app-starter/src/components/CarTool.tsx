@@ -1,15 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import {
-  Car,
-  NewCar,
-  CarKeys,
-  CarsOrder,
-  ORDER_ASC,
-  ORDER_DESC,
-} from '../models/car';
+import { Car, CarsOrder, ORDER_ASC } from '../models/car';
 
-import { useList } from '../hooks/useList';
+import { useCarStoreContext } from '../contexts/carStoreContext';
 import { ToolHeader } from './ToolHeader';
 import { CarTable } from './CarTable';
 import { CarForm } from './CarForm';
@@ -29,54 +22,20 @@ export const orderCars = (cars: Car[], carsOrder: CarsOrder) => {
   });
 };
 
-export interface CarToolProps {
-  cars: Car[];
-}
+export interface CarToolProps {}
 
 export function CarTool(props: CarToolProps) {
-  const [cars, appendCar, replaceCar, removeCar] = useList<Car>([
-    ...props.cars,
-  ]);
-  const [carsOrder, setCarsOrder] = useState<CarsOrder>({
-    column: 'id',
-    direction: ORDER_ASC,
-  });
-  const [editCarId, setEditCarId] = useState(-1);
-
-  const addCar = (newCar: NewCar) => {
-    appendCar(newCar);
-    setEditCarId(-1);
-  };
-
-  const saveCar = (car: Car) => {
-    replaceCar(car);
-    setEditCarId(-1);
-  };
-
-  const deleteCar = (carId: number) => {
-    removeCar(carId);
-    setEditCarId(-1);
-  };
-
-  const cancelCar = () => {
-    setEditCarId(-1);
-  };
-
-  const sortCars = (column: CarKeys) => {
-    setCarsOrder({
-      column,
-      direction:
-        column !== carsOrder.column
-          ? ORDER_ASC
-          : carsOrder.direction === ORDER_DESC
-          ? ORDER_ASC
-          : ORDER_DESC,
-    });
-  };
-
-  const editCar = (carId: number) => {
-    setEditCarId(carId);
-  };
+  const {
+    cars,
+    editCarId,
+    carsOrder,
+    addCar,
+    saveCar,
+    deleteCar,
+    editCar,
+    cancelCar,
+    sortCars,
+  } = useCarStoreContext();
 
   return (
     <>
