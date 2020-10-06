@@ -1,7 +1,7 @@
-import React, { useState, ChangeEvent } from 'react';
+import React from 'react';
 
 import { NewColour } from '../models/colour';
-import { strToNaN } from '../utils';
+import { useForm } from '../hooks/useForm';
 
 type HTMLFormControls =
   | HTMLInputElement
@@ -19,23 +19,14 @@ const emptyColorForm = () => ({
 });
 
 export function ColourForm(props: ColourFormProps) {
-  const [colourForm, setColourForm] = useState(emptyColorForm());
-
-  const change = ({
-    target: { name, type, value },
-  }: ChangeEvent<HTMLFormControls>) => {
-    setColourForm({
-      ...colourForm,
-      [name]: type === 'number' ? strToNaN(value) : value,
-    });
-  };
+  const [colourForm, change, resetColourForm] = useForm(emptyColorForm());
 
   const submitColour = () => {
     props.onSubmitColour({
       ...colourForm,
     });
 
-    setColourForm(emptyColorForm());
+    resetColourForm();
   };
 
   return (

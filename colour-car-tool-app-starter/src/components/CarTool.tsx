@@ -80,6 +80,10 @@ export function CarTool(props: CarToolProps) {
     });
   };
 
+  const editCar = (carId: number) => {
+    setEditCarId(carId);
+  };
+
   return (
     <>
       <ToolHeader headerText="Car Tool" />
@@ -87,7 +91,7 @@ export function CarTool(props: CarToolProps) {
         cars={orderCars(cars, carsOrder)}
         editCarId={editCarId}
         carsOrder={carsOrder}
-        onEditCar={setEditCarId}
+        onEditCar={editCar}
         onDeleteCar={deleteCar}
         onSaveCar={saveCar}
         onCancelCar={cancelCar}

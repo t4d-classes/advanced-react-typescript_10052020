@@ -5,7 +5,8 @@ import { Colour } from './models/colour';
 import { Car } from './models/car';
 import { ColourTool } from './components/ColourTool';
 import { CarTool } from './components/CarTool';
-import { withListManager } from './components/ListManagerHOC';
+// import { withListManager } from './components/ListManagerHOC';
+import { ListManager } from './components/ListManagerRP';
 
 const colourList: Colour[] = [
   { id: 1, name: 'pink', hexcode: 'ffc0cb' },
@@ -33,12 +34,18 @@ const carList: Car[] = [
   },
 ];
 
-const ColourToolLM = withListManager(ColourTool);
+// const ColourToolLM = withListManager(ColourTool);
 
 ReactDOM.render(
   <>
     {/*<ColourTool colours={colourList} />*/}
-    <ColourToolLM items={colourList} />
+    {/*<ColourToolLM items={colourList} />*/}
+    <ListManager
+      items={colourList}
+      render={({ items, appendItem }) => {
+        return <ColourTool items={items} onAppendItem={appendItem} />;
+      }}
+    />
     <CarTool cars={carList} />
   </>,
   document.querySelector('#root'),
