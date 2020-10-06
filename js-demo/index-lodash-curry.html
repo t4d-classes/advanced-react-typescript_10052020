@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"
+  integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww=="
+  crossorigin="anonymous"
+></script>
+<script>
+  /*
+  function doIt(a, b, c) {
+    console.log(a, b, c);
+  }
+
+  doIt(1, 2, 3);
+  */
+
+  const doIt2 = (a, b, c) => console.log(a, b, c);
+  // doIt2(1, 2, 3);
+
+  const doIt4 = _.curry(doIt2);
+
+  doIt4(1, 2, 3);
+  doIt4(1)(2)(3);
+
+  const a5 = doIt4(5);
+  a5(6, 7);
+  a5(8, 9);
+
+  /*
+  not going to work
+  const a5 = doIt2(5);
+  a5(1, 2);
+  */
+
+  /*
+  const doIt3 = (a) => (b) => (c) => console.log(a, b, c);
+
+  doIt3(1)(2)(3);
+
+  const a10 = doIt3(10);
+
+  a10(2)(3);
+  a10(5)(6);
+  */
+</script>

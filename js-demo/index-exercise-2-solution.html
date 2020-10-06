@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<script>
+  const getNums = (maxCount) => Array.from(new Array(maxCount).keys());
+
+  const maxCount = 5000;
+
+  function map(arr, fn) {
+    return arr.reduce((newArr, item) => {
+      newArr.push(fn(item));
+      return newArr;
+    }, []);
+  }
+
+  console.log(map(getNums(10), (x) => x * 2));
+
+  function filter(arr, fn) {
+    return arr.reduce((newArr, item) => {
+      if (fn(item)) {
+        newArr.push(item);
+      }
+      return newArr;
+    }, []);
+  }
+
+  console.log(filter(getNums(10), (x) => x > 5));
+</script>

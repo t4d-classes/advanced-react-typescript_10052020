@@ -1,27 +1,46 @@
 <!DOCTYPE html>
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"
+  integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww=="
+  crossorigin="anonymous"
+></script>
 <script>
-  const getNums = (maxCount) => Array.from(new Array(maxCount).keys());
+  const sumOld = (value) => {
+    if (value === 0) {
+      return 0;
+    } else {
+      return value + sumOld(value - 1);
+    }
+  };
 
-  const maxCount = 5000;
+  // console.log(sumOld(10000000));
 
-  // const nums = getNums(10);
-  const nums = getNums(maxCount);
+  const trampoline = (fn) => {
+    while (_.isFunction(fn)) {
+      fn = fn();
+    }
 
-  const t2 = performance.now();
-  const sum2 = nums.reduce((acc, cur) => {
-    console.log("acc: ", acc, "cur: ", cur);
-    return acc + cur;
-  }, 0);
-  console.log(performance.now() - t2);
+    return fn;
+  };
 
-  console.log(sum2);
+  const sum = (value) => {
+    const sumT = (value, cont) => {
+      console.log("value: " + value);
+      if (value === 0) {
+        console.log("base case");
+        return () => cont(0);
+      } else {
+        return () =>
+          sumT(value - 1, (result) => () => {
+            console.log(value + "+" + result + "=" + value + result);
+            return cont(value + result);
+          });
+      }
+    };
 
-  const t1 = performance.now();
-  const sum = nums.reduce((acc, cur) => {
-    // console.log("acc: ", acc, "cur: ", cur);
-    return acc + cur;
-  }, 0);
-  console.log(performance.now() - t1);
+    return trampoline(sumT(value, _.identity));
+  };
 
-  console.log(sum);
+  console.log(sum(4));
 </script>

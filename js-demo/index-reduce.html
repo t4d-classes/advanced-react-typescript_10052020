@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<script>
+  const getNums = (maxCount) => Array.from(new Array(maxCount).keys());
+
+  const maxCount = 5000;
+
+  // const nums = getNums(10);
+  const nums = getNums(maxCount);
+
+  const t2 = performance.now();
+  const sum2 = nums.reduce((acc, cur) => {
+    console.log("acc: ", acc, "cur: ", cur);
+    return acc + cur;
+  }, 0);
+  console.log(performance.now() - t2);
+
+  console.log(sum2);
+
+  const t1 = performance.now();
+  const sum = nums.reduce((acc, cur) => {
+    // console.log("acc: ", acc, "cur: ", cur);
+    return acc + cur;
+  }, 0);
+  console.log(performance.now() - t1);
+
+  console.log(sum);
+</script>

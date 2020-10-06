@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"
+  integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww=="
+  crossorigin="anonymous"
+></script>
+<script>
+  const doIt = _.memoize(
+    (a, b, c) => {
+      console.log("here");
+      return a + b + c;
+    },
+    (a, b, c) => String(a) + String(b) + String(c)
+  );
+
+  // const doIt = (a, b, c) => a + b + c;
+
+  console.log(doIt(1, 2, 3));
+  console.log(doIt(1, 4, 5));
+  console.log(doIt(1, 4, 5));
+
+  console.dir(doIt);
+</script>

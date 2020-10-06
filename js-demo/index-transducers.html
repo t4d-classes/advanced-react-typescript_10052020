@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<script>
+  const getNums = (maxCount) => Array.from(new Array(maxCount).keys());
+
+  // const maxCount = 10000000;
+  const maxCount = 10000000;
+
+  const triple = (num) => num * 3;
+  const even = (num) => num % 2 === 0;
+  const succ = (num) => num + 1;
+
+  const theNums = getNums(maxCount);
+
+  const t1 = performance.now();
+  const finalArray1 = theNums.map(triple).filter(even).map(succ);
+  console.log(performance.now() - t1);
+
+  console.log("final array 1", finalArray1.slice(0, 5));
+
+  const mapTransducer = (fn) => (reducer) => (acc, value) =>
+    reducer(acc, fn(value));
+  const filterTransducer = (fn) => (reducer) => (acc, value) =>
+    fn(value) ? reducer(acc, value) : acc;
+
+  const tripleReducer = mapTransducer(triple);
+  const evenReducer = filterTransducer(even);
+  const succReducer = mapTransducer(succ);
+
+  const toArrayReducer = (acc, value) => {
+    acc.push(value);
+    return acc;
+  };
+
+  const initialArray = [];
+
+  const t2 = performance.now();
+  const finalArray2 = theNums.reduce(
+    tripleReducer(evenReducer(succReducer(toArrayReducer))),
+    initialArray
+  );
+  console.log(performance.now() - t2);
+
+  console.log(initialArray === finalArray2);
+  console.log("final array 2", finalArray2.slice(0, 5));
+</script>
