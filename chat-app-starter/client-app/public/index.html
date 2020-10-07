@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React Chat App</title>
+  </head>
+  <body>
+    <!--
+      Uncomment the DIV element when coding the React part at the React component tree will
+      render the component tree here.
+    -->
+    <!-- <div id="root"></div> -->
+    <!--
+
+      PLEASE READ!
+
+      The code below can be commented out once the React version starts to be implemented.
+      Do not delete the code below, just comment it out. The JavaScript logic will be used with
+      the React version to interact with Socket.io.
+
+      SocketIO Client can be imported like this:
+
+      import io from "socket.io-client";
+
+      The types of SocketIO Client, can be referenced from the following namespace: SocketIOClient.Socket
+
+      const socket: SocketIOClient.Socket = io();
+
+      The namespace "SocketIOClient" is not imported, it's just available.
+
+      Be sure to properly close the open socket and unregister event handlers in the React version.
+
+    -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font: 13px Helvetica, Arial;
+      }
+      form {
+        background: #000;
+        padding: 3px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+      form input {
+        border: 0;
+        padding: 10px;
+        width: 90%;
+        margin-right: 0.5%;
+      }
+      form button {
+        width: 9%;
+        background: rgb(130, 224, 255);
+        border: none;
+        padding: 10px;
+      }
+      #messages {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      #messages li {
+        padding: 5px 10px;
+      }
+      #messages li:nth-child(odd) {
+        background: #eee;
+      }
+    </style>
+    <ul id="messages"></ul>
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
+      $(function () {
+        var socket = io();
+        $("form").submit(function (e) {
+          e.preventDefault(); // prevents page reloading
+          socket.emit("chat message", $("#m").val());
+          $("#m").val("");
+          return false;
+        });
+        socket.on("chat message", function (msg) {
+          $("#messages").append($("<li>").text(msg));
+        });
+      });
+    </script>
+  </body>
+</html>
