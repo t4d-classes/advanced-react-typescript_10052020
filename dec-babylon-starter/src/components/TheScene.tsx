@@ -1,51 +1,29 @@
 import React from 'react';
-import { Scene, useBabylonScene } from 'react-babylonjs';
-import { Vector3, Color3, Texture } from '@babylonjs/core';
+import { Scene } from 'react-babylonjs';
+import { Vector3 } from '@babylonjs/core';
+
+import { Ball } from './Ball';
+import { Pole } from './Pole';
 
 export function TheScene() {
   return (
     <Scene>
       <arcRotateCamera
         name="camera"
-        alpha={Math.PI / 2}
-        beta={Math.PI / 2}
-        radius={2}
-        target={new Vector3(0, 0, 5)}
+        alpha={Math.PI}
+        beta={0}
+        radius={50}
+        target={new Vector3(0, 0, 8)}
       />
-      <hemisphericLight name="light1" direction={new Vector3(1, 1, 0)} />
-      <pointLight name="light2" position={new Vector3(0, 1, -1)} />
-      <Sphere />
+      {/* <hemisphericLight name="light1" direction={new Vector3(1, 1, 0)} /> */}
+      {/* <pointLight name="light2" position={new Vector3(0, 1, -1)} /> */}
 
-      <box
-        name="box"
-        height={4}
-        width={6}
-        depth={3}
-        position={new Vector3(-4, 6, 2)}
-        rotation={new Vector3(Math.PI / 4, Math.PI / 6, 0)}></box>
+      <Pole id="1" x={-8} z={0} />
+      <Pole id="2" x={8} z={0} />
+      <Pole id="3" x={0} z={-8} />
+      <Pole id="4" x={0} z={8} />
 
-      <ground name="ground" width={20} height={20} />
+      <Ball id="1" x={0} z={20} />
     </Scene>
-  );
-}
-
-function Sphere() {
-  return (
-    <sphere name="sphere" diameter={2} position={new Vector3(0, 1, 0)}>
-      <SphereMaterial />
-    </sphere>
-  );
-}
-
-function SphereMaterial() {
-  const scene = useBabylonScene();
-
-  return (
-    <standardMaterial
-      name="sphere-material"
-      diffuseColor={new Color3(0.5, 0.5, 0)}
-      diffuseTexture={new Texture('/images/rope.jpg', scene)}>
-      {/* <texture assignTo="emissiveTexture" url={'/images/rope.jpg'} /> */}
-    </standardMaterial>
   );
 }
