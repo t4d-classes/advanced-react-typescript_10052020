@@ -2,6 +2,7 @@ import { Engine, Scene, ArcRotateCamera, Vector3, HemisphericLight, PointLight, 
 
 export const createScene = (engine: Engine, canvas: HTMLCanvasElement) => {
   const scene = new Scene(engine);
+  console.dir(scene);
 
   const camera = new ArcRotateCamera(
     'camera',
