@@ -1,11 +1,18 @@
-import React from 'react';
-import { Scene } from 'react-babylonjs';
-import { Vector3 } from '@babylonjs/core';
+import React, { useEffect } from 'react';
+import { Scene, useBabylonScene } from 'react-babylonjs';
+import { ActionManager, Vector3, ExecuteCodeAction } from '@babylonjs/core';
 
 import { Ball } from './Ball';
 import { Pole } from './Pole';
 
+const KEY_LEFT_ARROW = 37;
+const KEY_UP_ARROW = 38;
+const KEY_RIGHT_ARROW = 39;
+const KEY_DOWN_ARROW = 40;
+
 export function TheScene() {
+
+
   return (
     <Scene>
       <arcRotateCamera
@@ -14,6 +21,10 @@ export function TheScene() {
         beta={0}
         radius={50}
         target={new Vector3(0, 0, 8)}
+        keysUp={[]}
+        keysDown={[]}
+        keysLeft={[]}
+        keysRight={[]}
       />
       {/* <hemisphericLight name="light1" direction={new Vector3(1, 1, 0)} /> */}
       {/* <pointLight name="light2" position={new Vector3(0, 1, -1)} /> */}
