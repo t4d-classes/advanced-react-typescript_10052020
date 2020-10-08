@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
-import { useBabylonScene } from 'react-babylonjs';
+import React, { useEffect, useRef } from 'react';
+import { useBabylonScene, CreatedInstance } from 'react-babylonjs';
 import {
   ActionManager,
   Vector3,
   ExecuteCodeAction,
   Color3,
   Texture,
+  AbstractMesh,
 } from '@babylonjs/core';
 
 export type BallProps = {
@@ -21,11 +22,14 @@ const KEY_DOWN_ARROW = 40;
 
 export function Ball({ id, x, z }: BallProps) {
   const scene = useBabylonScene();
+  const sphereRef = useRef<CreatedInstance<AbstractMesh> | null>(null);
 
   useEffect(() => {
-    if (!scene) {
+    if (!scene || !sphereRef.current || !sphereRef.current.hostInstance) {
       return;
     }
+
+    const sphere = sphereRef.current.hostInstance;
 
     if (!scene.actionManager) {
       scene.actionManager = new ActionManager(scene);
@@ -37,13 +41,17 @@ export function Ball({ id, x, z }: BallProps) {
           trigger: ActionManager.OnKeyUpTrigger,
           parameter: String.fromCharCode(KEY_LEFT_ARROW),
         },
-        () => console.log('left arrow key'),
+        () => (sphere.position.x -= 0.5),
       ),
     );
   }, [scene]);
 
   return (
-    <sphere name={'ball-' + id} diameter={2} position={new Vector3(x, 0, z)}>
+    <sphere
+      ref={sphereRef}
+      name={'ball-' + id}
+      diameter={2}
+      position={new Vector3(x, 0, z)}>
       <SphereMaterial />
     </sphere>
   );
