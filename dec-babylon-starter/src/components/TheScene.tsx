@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react';
-import { Scene, useBabylonScene } from 'react-babylonjs';
-import { ActionManager, Vector3, ExecuteCodeAction } from '@babylonjs/core';
+import React from 'react';
+import { Scene } from 'react-babylonjs';
+import { Vector3 } from '@babylonjs/core';
 
+import { useBallPosition } from '../hooks/useBallPosition';
 import { Ball } from './Ball';
 import { Pole } from './Pole';
 
-const KEY_LEFT_ARROW = 37;
-const KEY_UP_ARROW = 38;
-const KEY_RIGHT_ARROW = 39;
-const KEY_DOWN_ARROW = 40;
-
 export function TheScene() {
-
+  const [
+    ballPosition,
+    onMoveLeft,
+    onMoveRight,
+    onMoveUp,
+    onMoveDown,
+  ] = useBallPosition(new Vector3(0, 0, 20));
 
   return (
     <Scene>
@@ -34,7 +36,15 @@ export function TheScene() {
       <Pole id="3" x={0} z={-8} />
       <Pole id="4" x={0} z={8} />
 
-      <Ball id="1" x={0} z={20} />
+      <Ball
+        id="1"
+        x={ballPosition.x}
+        z={ballPosition.z}
+        onMoveLeft={onMoveLeft}
+        onMoveRight={onMoveRight}
+        onMoveUp={onMoveUp}
+        onMoveDown={onMoveDown}
+      />
     </Scene>
   );
 }

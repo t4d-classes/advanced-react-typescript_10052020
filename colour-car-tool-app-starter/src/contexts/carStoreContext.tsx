@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useDebugValue } from 'react';
 
 import { Car } from '../models/car';
 import { CarStore } from '../models/carStore';
@@ -20,5 +20,7 @@ export const CarStoreProvider = ({ children, cars }: CarStoreProviderProps) => {
 };
 
 export const useCarStoreContext = () => {
+  useDebugValue('this is fun!');
+
   return useContext(carStoreContext);
 };
